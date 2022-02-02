@@ -1,0 +1,32 @@
+# This file was created Wed May  5 09:28:56 2021
+# Created by:
+#         :-) GROMACS - gmx bar, 2019.4-dev-20200518-febfc43-unknown (-:
+# 
+# Executable:   /u/m/mbernett/my_progs/gromacs_barostat_semiisotropic_surftens/bin/gmx_mpi
+# Data prefix:  /u/m/mbernett/my_progs/gromacs_barostat_semiisotropic_surftens
+# Working dir:  /net/sbp/sbpstore1/vpiompon/AFEC/m6a_syn/ReplicaEx
+# Command line:
+#   gmx_mpi bar -f md_lam0.xvg md_lam10.xvg md_lam11.xvg md_lam12.xvg md_lam13.xvg md_lam14.xvg md_lam15.xvg md_lam1.xvg md_lam2.xvg md_lam3.xvg md_lam4.xvg md_lam5.xvg md_lam6.xvg md_lam7.xvg md_lam8.xvg md_lam9.xvg -o -oi
+# gmx bar is part of G R O M A C S:
+#
+# Gromacs Runs One Microsecond At Cannonball Speeds
+#
+@    title "Free energy differences"
+@    xaxis  label "\xl\f{}"
+@    yaxis  label "\xD\f{}G (kT)"
+@TYPE xydy
+ 0.500  3.63  0.01
+ 1.500  4.56  0.01
+ 2.500  2.07  0.01
+ 3.500  3.91  0.01
+ 4.500  7.83  0.01
+ 5.500 12.29  0.02
+ 6.500  9.20  0.01
+ 7.500 10.11  0.01
+ 8.500 11.13  0.01
+ 9.500 18.77  0.02
+10.500 13.60  0.02
+11.500  6.03  0.02
+12.500  1.39  0.02
+13.500  0.00  0.02
+14.500 -0.99  0.01
