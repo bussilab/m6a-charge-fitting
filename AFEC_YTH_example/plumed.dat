@@ -1,0 +1,59 @@
+# vim:ft=plumed
+#LOAD FILE=./GHBFIX.cpp
+
+MOLINFO STRUCTURE=system_afec.pdb
+
+#group_all: GHBFIX PAIR GROUPA=311,2073,617 GROUPB=2610,2643,2529 D_0=0.2 D_MAX=0.3 C=0.8 TYPES=typesTable.dat PARAMS=scalingParameters.dat
+group_all: GHBFIX PAIR GROUPA=311,2073 GROUPB=2614,2647 D_0=0.2 D_MAX=0.3 C=0.8 TYPES=typesTable.dat PARAMS=scalingParameters.dat
+
+tot_1: COMBINE ARG=group_all PERIODIC=NO
+BIASVALUE ARG=tot_1 LABEL=all_1
+#PRINT ARG=tot_1,all_1.bias STRIDE=250 FILE=check_ghbfix21.dat
+
+
+center: CENTER ATOMS=2564-2566           # geometric center of the host molecule
+water_group: GROUP ATOMS=2739-27521:3   # oxygen atom of the water molecules
+n: COORDINATION GROUPA=center GROUPB=water_group SWITCH={RATIONAL R_0=0.45 D_MAX=0.75} NLIST NL_CUTOFF=0.8 NL_STRIDE=10  # radius: 0.6 nm
+
+c1: COM ATOMS=317-355,388-401,535-602,1341-1364,1400-1413,1431-1447,1508-1526,2129-2140 
+c2: COM ATOMS=2559-2575
+d: DISTANCE ATOMS=c1,c2
+
+
+METAD ...
+ARG=n
+SIGMA=0.05    # small SIGMA ensure that the Gaussian approaximate a delta function
+HEIGHT=5
+PACE=1000
+GRID_MIN=0     
+GRID_MAX=10     
+TEMP=300
+BIASFACTOR=3
+LABEL=metad
+FILE=HILLS
+RESTART=YES
+... METAD
+
+UPPER_WALLS ...
+ ARG=n
+ AT=2.5
+ KAPPA=200.0
+ EXP=2
+ EPS=1
+ OFFSET=0
+ LABEL=uwall
+... UPPER_WALLS
+
+LOWER_WALLS ...
+ ARG=n
+ AT=-0.1
+ KAPPA=200.0
+ EXP=2
+ EPS=1
+ OFFSET=0
+ LABEL=lwall
+... LOWER_WALLS
+
+DEBUG DETAILED_TIMERS
+
+PRINT STRIDE=10 ARG=* FILE=COLVAR
